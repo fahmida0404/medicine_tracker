@@ -9,15 +9,17 @@
 <body>
     <form action={% url "tracker:signup" %} method="POST">
         {% csrf_token %}
+        {% comment %} signup form  {% endcomment %}
         <legend><h1>Signup</h1></legend>
         <label for="user">Username<superscript>*</superscript></label>
         <input type="text" name="username" id="user"><br>
         <label for="email">Email<superscript>*</superscript></label>
         <input type="text" name="email" id="email"><br>
         <label for="pass"> Passsword<superscript>*</superscript></label>
-        <input type="text" name="password" id="pass">
+        <input type="password" name="password" id="pass">
         <input type="submit" name="Signup">
     </form>
+    {% comment %} url for login  {% endcomment %}
     <p>Already have an account? <a href={%url "tracker:login"%}>Login</a></p>
 </body>
 

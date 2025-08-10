@@ -6,19 +6,21 @@
     <title>Login</title>
 </head>
 <body>
+    {% comment %} error message for wrong credentials {% endcomment %}
     {% if error %}
         <p>{{error}}</p>
     {% endif %}
+    {% comment %} login form {% endcomment %}
     <form action={% url "tracker:login" %} method="POST">
         {% csrf_token %}
         <legend><h1>Login</h1></legend>
         <label for="user">Username<superscript>*</superscript> </label>
         <input type="text" name="username" id="user"><br>
         <label for="pass">Passsword<superscript>*</superscript> </label>
-        <input type="text" name="password" id="pass">
+        <input type="password" name="password" id="pass">
         <input type="submit" name="Login">
     </form>
-
+    {% comment %} url for signup {% endcomment %}
     <p>Don't have an account? <a href={% url "tracker:signup" %}>Signup</a></p>
 </body>
 </html>

@@ -1,9 +1,12 @@
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-# Create your views here.
+
+# Creating views here.
+
 def signup(request):
+    # creating new user object in User model in database
     if request.method=="POST":
         username = request.POST["username"]
         email = request.POST["email"]
@@ -13,15 +16,19 @@ def signup(request):
     return render(request, "tracker\signup.html")
 
 def log_in(request):
+    # authenticating user credentials 
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
-            return HttpResponse("Hello! This is medicine tracker.")
+            return render(request, "tracker\index.html")
         else:
             error_msg = {"error" :  "Incorrect credentials! Try Again."}
             return render(request, "tracker\login.html",error_msg)
-        
     return render(request, "tracker\login.html")
+
+def log_out(request):
+    logout(request)
+    return HttpResponseRedirect(reverse("tracker:login"))
