@@ -23,7 +23,8 @@ def log_in(request):
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
-            return render(request, "tracker\index.html")
+            # rendirect to index view when logged in
+            return HttpResponseRedirect(reverse("tracker:index"))
         else:
             error_msg = {"error" :  "Incorrect credentials! Try Again."}
             return render(request, "tracker\login.html",error_msg)
@@ -32,3 +33,9 @@ def log_in(request):
 def log_out(request):
     logout(request)
     return HttpResponseRedirect(reverse("tracker:login"))
+
+def index(request):
+    return render(request, "tracker/index.html")
+
+def add(request):
+    return render(request, "tracker/add.html")
